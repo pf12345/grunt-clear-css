@@ -34,8 +34,8 @@ module.exports = function(grunt) {
           outFile: true
         },
         files: {
-          'css': ['test/fixtures/test.css'],
-          'html': ['test/fixtures/test.html', 'test/fixtures/file.html']
+          'css': ['test/fixtures/test1.css'],
+          'html': ['test/fixtures']
         }
       }
     },
@@ -51,7 +51,7 @@ module.exports = function(grunt) {
   grunt.loadTasks('tasks');
 
   // These plugins provide necessary tasks.
-//  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-clean');
 //  grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
@@ -60,6 +60,6 @@ module.exports = function(grunt) {
   grunt.registerTask('test', ['clean', 'clear_css']);
 
   // By default, lint and run all tests.
-  grunt.registerTask('default', ['jshint', 'test']);
+  grunt.registerTask('default', ['jshint','test']);
 
 };

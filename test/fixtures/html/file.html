@@ -1,0 +1,83 @@
+{% extends '../shared/layout_cn_other.html' %}
+
+{% block content %}
+<div id="content" class="container clearfix community">
+    <div class="community-single-file">
+        <div class="community-title">
+            <h3>
+                <a href="/community/user/{{value.user.id}}">{{value.user.name}}</a>
+                <img align="center" src="/images/content/icon/history-icon.png">
+                <a href="/community/project/{{value.project.id}}">{{value.project.name}}</a>
+                <img align="center" src="/images/content/icon/history-icon.png">
+                <span class="project-name fileName">{{value.file.name}}</span>
+            </h3>
+
+            <p class="line"></p>
+        </div>
+        <div class="community-single-file-img">
+            <div class="share">
+                <a target="_blank" id="weibo-share" href=""><img src="/images/content/icon/weibo_32.png" /></a>
+                <a target="_blank" id="qzone-share" href=""><img src="/images/content/icon/qzone_32.png" /></a>
+            </div>
+            <div class="file-img community-single-file-sImg">
+                <div>
+                    <img src="{{value.file.imagePath}}" alt=""/>
+                </div>
+            </div>
+            <div class="file-img-full community-single-file-bImg">
+                <div class="file-mc"></div>
+                <div>
+                    <img src="{{value.file.imagePath}}" alt=""/>
+                </div>
+            </div>
+            <input name="fileId" type="hidden" id="comunity-fileId" value="{{value.file.id}}"/>
+        </div>
+        <div class="community-title">
+            <h3>评论</h3>
+            <p class="line"></p>
+        </div>
+        <div class="community-single-file-comments">
+            {% if comments.length === 0 %}
+            <div class="community-comment">
+                <div class="community-comment-content">
+                    没有评论。
+                </div>
+            </div>
+            {% endif %}
+            {% for comment in comments %}
+            <div class="community-comment">
+                <div class="comment-user-img">
+                    <a href="/community/user/{{comment.userId}}"><img width="50" src="{{comment.avatar}}" alt=""/></a>
+                </div>
+
+                <div class="community-comment-content">
+                    <div class="comment-header">
+                        <a href="/community/user/{{comment.userId}}">{{comment.name}}</a><span>{{comment.addTime}}</span>
+                        <b class="arrow arrow-left"></b>
+                    </div>
+                    <div class="comment-message">
+                        {{comment.content}}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="community-add-community">
+            <textarea name="" id="" cols="30" rows="10" placeholder="添加评论"></textarea>
+            <input type="button" value="确定" class="btn red"/>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        var url = window.location.href,
+            title = $('.fileName').html(),
+            imgSrc = $('.file-img img').attr('src');
+        var weiBoShareUrl = "http://service.weibo.com/share/share.php?url="+url+"&title=分享页面："
+                +title+"&appkey=4029991350&relateUid=3310679382&count=1pic="+imgSrc;
+        var qoneShareUrl = "http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=" + encodeURIComponent(url) + "&title=" + encodeURIComponent(title);
+        $('#weibo-share').attr('href', weiBoShareUrl);
+        $('#qzone-share').attr('href', qoneShareUrl);
+    });
+</script>
+{% endblock %}
